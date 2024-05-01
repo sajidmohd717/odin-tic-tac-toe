@@ -1,0 +1,37 @@
+.user_info_btn {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    width: 300px;
+    align-items: center;
+    justify-content: center;
+}
+
+.user_info {
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.game_grid {
+    display: grid;
+    grid-template: 100px 100px 100px / 100px 100px 100px;
+
+}
+
+.game_grid div {
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+}
+
+.full_body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
