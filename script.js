@@ -33,6 +33,19 @@ function startGame() {
     let playerTurnH3 = document.createElement('h3');
     playerTurnH3.textContent = `It's ${player1.name}'s turn to play`;
     gameStatsDiv.appendChild(playerTurnH3);
+    const indivGrid = document.querySelectorAll('.game_grid div')
+    indivGrid.forEach((div) => {
+        div.addEventListener("click", () => gameClick(div))
+    })
+}
+
+function gameClick(div) {
+    div.textContent = "x"
+    player2_turn()
+}
+
+function player2_turn() {
+    
 }
 
 const startButton = document.getElementById("start_button");
