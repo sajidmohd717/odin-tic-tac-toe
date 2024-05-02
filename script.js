@@ -1,3 +1,4 @@
+// Global Varialbes, must remove in the future!
 const GRID_SIZE = 9;
 let player1_turn = true;
 let player2_turn = false;
@@ -46,7 +47,6 @@ function startGame() {
 }
 
 function switch_turns() {
-
   let playerTurnH3 = document.querySelector(".h3_turn");
 
   if (player1_turn) {
