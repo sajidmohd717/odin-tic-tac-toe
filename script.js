@@ -86,7 +86,14 @@ function updateDivs() {
   });
 
   // Check for a win after each update
-  checkForWin(gameboard);
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
+  sleep(2000).then(() => { checkForWin(gameboard);});
+
+  
 }
 
 function gameClick(div) {
