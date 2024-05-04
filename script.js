@@ -84,6 +84,9 @@ function updateDivs() {
     // Update the text content of the div with the corresponding value from the game board
     div.textContent = gameboard[index - 1];
   });
+
+  // Check for a win after each update
+  checkForWin(gameboard);
 }
 
 function gameClick(div) {
@@ -106,4 +109,28 @@ function initializeGameboard() {
     div.setAttribute("id", grid_number);
     gameGrid.appendChild(div);
   });
+}
+
+function checkForWin(board) {
+  const winningCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  // Check if X or O occupies all cells in any winning combination
+  for (const combination of winningCombinations) {
+    if (combination.every((index) => board[index] === "X")) {
+      alert("X won!");
+      return;
+    } else if (combination.every((index) => board[index] === "O")) {
+      alert("O won!");
+      return;
+    }
+  }
 }
