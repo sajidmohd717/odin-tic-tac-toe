@@ -1,22 +1,63 @@
 // Global Varialbes, must remove in the future!
-const GRID_SIZE = 9;
 let player1_turn = true;
 let player2_turn = false;
 
-let player1;
-let player2;
+let playersList = []
+let currentPlayer = 0
 
-function initializeGameboard() {
-  let grid = document.querySelector(".game_grid");
+const game = gameStats();
 
-  for (let i = 0; i < GRID_SIZE; i++) {
-    let div = document.createElement("div");
-    grid.appendChild(div);
+function gameStats() {
+  let initial_gameboard = ['', '', '', '', '', '', '', '', '']
+  let get_gameboard = () => {
+    return initial_gameboard
   }
+  let update_gameboard = (location, value) => {
+    initial_gameboard[location] = value
+    console.log(initial_gameboard)
+    updateDivs()
+
+  }
+  return {get_gameboard, update_gameboard}
 }
 
-function createPlayer(name) {
-  return { name };
+
+function initializeGameboard() {
+  let gameGrid = document.querySelector(".game_grid");
+
+  let gameboard = game.get_gameboard(); // Call the function to get the gameboard array
+
+  gameboard.forEach((grid, grid_number) => {
+    let div = document.createElement("div");
+    console.log('xxx grid: ' + grid)
+    div.textContent = grid
+    div.setAttribute('id', grid_number)
+    gameGrid.appendChild(div);
+  });
+
+}
+
+function updateDivs() {
+  let gameGrid = document.querySelector(".game_grid");
+  let gameboard = game.get_gameboard(); // Call the function to get the gameboard array
+
+  // Loop through each div in the game grid
+  gameGrid.childNodes.forEach((div, index) => {
+    // Update the text content of the div with the corresponding value from the game board
+    div.textContent = gameboard[index -1];
+  });
+}
+
+function createPlayer(name, player_no) {
+  let turn = false;
+  let gameSymbol;
+  if (player_no === 1) {
+    gameSymbol = 'X'
+  }
+  else {
+    gameSymbol = 'O'
+  }
+  return { name , turn,  gameSymbol};
 }
 
 function startGame() {
@@ -27,9 +68,10 @@ function startGame() {
     console.error("Please enter names for both players.");
     return;
   }
-
-  player1 = createPlayer(player1Name);
-  player2 = createPlayer(player2Name);
+  let player1 = createPlayer(player1Name, 1);
+  playersList.push(player1)
+  let player2 = createPlayer(player2Name, 2);
+  playersList.push(player2)
 
   initializeGameboard();
 
@@ -42,7 +84,11 @@ function startGame() {
   gameStatsDiv.appendChild(playerTurnH3);
   const indivGrid = document.querySelectorAll(".game_grid div");
   indivGrid.forEach((div) => {
-    div.addEventListener("click", () => gameClick(div));
+    div.addEventListener("click", (event) => {
+      game.update_gameboard(event.target.id, playersList[currentPlayer].gameSymbol)
+      console.log(playersList)
+      // gameClick(div)
+    });
   });
 }
 
